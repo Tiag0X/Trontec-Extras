@@ -6,12 +6,23 @@ import { StrategyTab } from "./strategy-tab"
 import { LastWeekTab } from "./last-week-tab"
 import { DataTableTab } from "./data-table-tab"
 import { SheetRow } from "@/lib/google-sheets"
+import { useEffect, useState } from "react"
 
 interface DashboardViewProps {
     initialData: SheetRow[]
 }
 
 export function DashboardView({ initialData }: DashboardViewProps) {
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    if (!mounted) {
+        return <div className="flex items-center justify-center p-8 text-muted-foreground animate-pulse">Carregando painel...</div>
+    }
+
     return (
         <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>

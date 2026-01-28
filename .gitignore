@@ -4,3 +4,5 @@ __pycache__/
 *.json
 !package.json
 .pytest_cache/
+
+!web/**/*.json

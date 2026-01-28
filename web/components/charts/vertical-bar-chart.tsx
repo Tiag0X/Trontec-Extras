@@ -19,6 +19,7 @@ interface VerticalBarChartProps {
     title: string
     description?: string
     color?: string
+    height?: number
 }
 
 export function VerticalBarChart({
@@ -27,7 +28,8 @@ export function VerticalBarChart({
     yAxisKey,
     title,
     description,
-    color = "#3b82f6"
+    color = "#3b82f6",
+    height = 350
 }: VerticalBarChartProps) {
     return (
         <Card>
@@ -35,7 +37,7 @@ export function VerticalBarChart({
                 <CardTitle>{title}</CardTitle>
                 {description && <CardDescription>{description}</CardDescription>}
             </CardHeader>
-            <CardContent className="h-[350px]">
+            <CardContent style={{ height: height }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} />

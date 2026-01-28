@@ -60,4 +60,11 @@ export function parseSheetDate(dateStr: string): Date | null {
   return null
 }
 
+export function getShiftColor(hour: number): string {
+  if (hour >= 0 && hour < 6) return "#EF4444" // Madrugada (Vermelho)
+  if (hour >= 6 && hour < 18) return "#3B82F6" // Comercial (Azul)
+  return "#F97316" // Noturno (Laranja) 18h-00h
+}
+
+
 

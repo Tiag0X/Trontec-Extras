@@ -19,6 +19,7 @@ interface DonutChartProps {
     description?: string
     total?: number
     colors?: string[]
+    height?: number
 }
 
 const DEFAULT_COLORS = [
@@ -32,7 +33,8 @@ export function DonutChart({
     title,
     description,
     total,
-    colors = DEFAULT_COLORS
+    colors = DEFAULT_COLORS,
+    height = 350
 }: DonutChartProps) {
 
     return (
@@ -41,7 +43,7 @@ export function DonutChart({
                 <CardTitle>{title}</CardTitle>
                 {description && <CardDescription>{description}</CardDescription>}
             </CardHeader>
-            <CardContent className="h-[350px] relative">
+            <CardContent className="relative" style={{ height: height }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie

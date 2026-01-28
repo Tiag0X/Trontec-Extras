@@ -8,6 +8,7 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    Cell,
     Legend,
     ResponsiveContainer
 } from "recharts"
@@ -60,12 +61,17 @@ export function DualAxisChart({
                                 if (name === barName) return formatCurrency(value)
                                 return value
                             }}
+                            contentStyle={{ borderRadius: "8px" }}
                         />
                         <Legend />
-                        <Bar yAxisId="left" dataKey={barKey} barSize={20} fill="#413ea0" name={barName} radius={[4, 4, 0, 0]} />
-                        <Line yAxisId="right" type="monotone" dataKey={lineKey1} stroke="#ff7300" name={lineName1} strokeWidth={2} />
+                        <Bar yAxisId="left" dataKey={barKey} barSize={20} fill="#413ea0" name={barName} radius={[4, 4, 0, 0]}>
+                            {data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color || "#413ea0"} />
+                            ))}
+                        </Bar>
+                        <Line yAxisId="right" type="monotone" dataKey={lineKey1} stroke="#10B981" name={lineName1} strokeWidth={2} />
                         {lineKey2 && (
-                            <Line yAxisId="right" type="monotone" dataKey={lineKey2} stroke="#82ca9d" name={lineName2} strokeDasharray="5 5" strokeWidth={2} />
+                            <Line yAxisId="right" type="monotone" dataKey={lineKey2} stroke="#8B5CF6" name={lineName2} strokeDasharray="5 5" strokeWidth={2} />
                         )}
                     </ComposedChart>
                 </ResponsiveContainer>

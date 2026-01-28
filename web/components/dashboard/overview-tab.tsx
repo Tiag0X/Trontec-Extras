@@ -9,6 +9,8 @@ import { HorizontalBarChart } from "../charts/horizontal-bar-chart"
 import { DonutChart } from "../charts/donut-chart"
 import { format, parseISO } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 interface OverviewTabProps {
     data: SheetRow[]
@@ -169,14 +171,44 @@ export function OverviewTab({ data }: OverviewTabProps) {
                     description="Por valor recebido"
                     height={350}
                 />
-                <DonutChart
-                    data={setorData.slice(0, 5)}
-                    nameKey="name"
-                    dataKey="value"
-                    title="Valor por Setor"
-                    total={totalValor}
-                />
+                <div className="space-y-4">
+                    <DonutChart
+                        data={setorData.slice(0, 5)}
+                        nameKey="name"
+                        dataKey="value"
+                        title="Valor por Setor"
+                        total={totalValor}
+                    />
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>🔍 Ver detalhes de todos os setores</AccordionTrigger>
+                            <AccordionContent>
+                                <div className="max-h-[300px] overflow-auto">
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead>Setor</TableHead>
+                                                <TableHead className="text-right">Valor</TableHead>
+                                                <TableHead className="text-right">% Total</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {setorData.map((s, i) => (
+                                                <TableRow key={i}>
+                                                    <TableCell>{s.name}</TableCell>
+                                                    <TableCell className="text-right">{formatCurrency(s.value)}</TableCell>
+                                                    <TableCell className="text-right">{((s.value / totalValor) * 100).toFixed(2)}%</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
             </div>
         </div>
     )
 }
+
