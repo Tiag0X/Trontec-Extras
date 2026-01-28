@@ -27,7 +27,7 @@ export async function getSheetData(): Promise<SheetRow[]> {
         }
 
         const auth = new google.auth.GoogleAuth({
-            credentials: JSON.parse(credentialsJson),
+            credentials: JSON.parse(credentialsJson.trim().replace(/^['"]|['"]$/g, '')),
             scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
         });
 
