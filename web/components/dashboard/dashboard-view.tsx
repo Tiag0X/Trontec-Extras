@@ -2,6 +2,9 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OverviewTab } from "./overview-tab"
+import { StrategyTab } from "./strategy-tab"
+import { LastWeekTab } from "./last-week-tab"
+import { DataTableTab } from "./data-table-tab"
 import { SheetRow } from "@/lib/google-sheets"
 
 interface DashboardViewProps {
@@ -22,22 +25,16 @@ export function DashboardView({ initialData }: DashboardViewProps) {
                 <OverviewTab data={initialData} />
             </TabsContent>
 
-            <TabsContent value="strategy">
-                <div className="flex h-[450px] items-center justify-center rounded-md border border-dashed text-muted-foreground bg-white">
-                    Aba de Estratégia em migração...
-                </div>
+            <TabsContent value="strategy" className="space-y-4">
+                <StrategyTab data={initialData} />
             </TabsContent>
 
-            <TabsContent value="last-week">
-                <div className="flex h-[450px] items-center justify-center rounded-md border border-dashed text-muted-foreground bg-white">
-                    Aba de Semana Passada em migração...
-                </div>
+            <TabsContent value="last-week" className="space-y-4">
+                <LastWeekTab data={initialData} />
             </TabsContent>
 
-            <TabsContent value="data">
-                <div className="flex h-[450px] items-center justify-center rounded-md border border-dashed text-muted-foreground bg-white">
-                    Tabela de Dados em migração...
-                </div>
+            <TabsContent value="data" className="space-y-4">
+                <DataTableTab data={initialData} />
             </TabsContent>
         </Tabs>
     )

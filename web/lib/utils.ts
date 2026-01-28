@@ -28,3 +28,34 @@ export function normalizeBoolean(value: any): "Sim" | "Não" {
   const valStr = String(value).toLowerCase().trim()
   return ["sim", "s", "yes", "true", "1"].includes(valStr) ? "Sim" : "Não"
 }
+
+export function extractHour(val: any): number {
+  const v = String(val).trim()
+  if (!v || ["nan", "none", "", "nat"].includes(v.toLowerCase())) return -1;
+  try {
+    const timePart = v.includes(" ") ? v.split(" ")[1] : v;
+    if (timePart.includes(":")) {
+      return parseInt(timePart.split(":")[0], 10);
+    }
+  } catch { }
+  return -1;
+}
+
+export function parseSheetDate(dateStr: string): Date | null {
+  if (!dateStr) return null;
+  // Tentar formato ISO yyyy-mm-dd
+  if (dateStr.match(/^\d{4}-\d{2}-\d{2}/)) {
+    return new Date(dateStr)
+  }
+  // Tentar formato BR dd/mm/yyyy
+  if (dateStr.includes('/')) {
+    const parts = dateStr.split('/')
+    if (parts.length === 3) {
+      // assumindo dia/mes/ano
+      return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+    }
+  }
+  return null
+}
+
+
