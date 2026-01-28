@@ -45,14 +45,16 @@ export function parseSheetDate(dateStr: string): Date | null {
   if (!dateStr) return null;
   // Tentar formato ISO yyyy-mm-dd
   if (dateStr.match(/^\d{4}-\d{2}-\d{2}/)) {
-    return new Date(dateStr)
+    const d = new Date(dateStr)
+    return !isNaN(d.getTime()) ? d : null
   }
   // Tentar formato BR dd/mm/yyyy
   if (dateStr.includes('/')) {
     const parts = dateStr.split('/')
     if (parts.length === 3) {
       // assumindo dia/mes/ano
-      return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+      const d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+      return !isNaN(d.getTime()) ? d : null
     }
   }
   return null
